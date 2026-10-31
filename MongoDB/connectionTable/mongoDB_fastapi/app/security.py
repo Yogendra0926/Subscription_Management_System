@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, timezone
 import jwt
+import bcrypt
 from pwdlib import PasswordHash
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
@@ -16,6 +17,8 @@ def hash_password(password: str) -> str:
 
 def verify_password(password: str, hashed: str) -> bool:
     try:
+        if hashed.startswith(("$2a$", "$2b$", "$2y$")):
+            return bcrypt.checkpw(password.encode("utf-8"), hashed.encode("utf-8"))
         return password_hash.verify(password, hashed)
     except Exception:
         return False
