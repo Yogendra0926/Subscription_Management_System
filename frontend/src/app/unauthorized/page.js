@@ -1,0 +1,1 @@
+export default function Unauthorized() { return <main style={{padding:"80px",fontFamily:"Arial",textAlign:"center"}}><h1>Access denied</h1><p>This demo account does not have permission to view this workspace.</p><a href="/login">Return to sign in</a></main>; }
